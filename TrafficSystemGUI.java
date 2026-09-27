@@ -11,7 +11,6 @@ public class TrafficSystemGUI extends JFrame {
     private int accountCounter = 0;
     private int vehicleCounter = 0;
     private int requestCounter = 0;
-    private int crossingCounter = 0;
 
     // Stores registered vehicle numbers
     private Set<String> registeredVehicles = new HashSet<>();
@@ -62,11 +61,13 @@ public class TrafficSystemGUI extends JFrame {
     private JTextField erDestinationField;
     private JTextField erReasonField;
 
-    // Emergency Priority
     private JComboBox<String> emergencyPriorityBox;
 
     // Admin
     private JTextField erRequestIdField;
+
+    // Crossing Admin
+    private JTextField crossingRequestIdField;
 
     // =========================================================
     // ROADMAP
@@ -81,7 +82,6 @@ public class TrafficSystemGUI extends JFrame {
 
     private JTextField routeSourceField;
     private JTextField routeDestField;
-
 
     // =========================================================
     // CONSTRUCTOR
@@ -103,56 +103,43 @@ public class TrafficSystemGUI extends JFrame {
 
         setLayout(new BorderLayout(10, 10));
 
-
         // =====================================================
         // TABS
         // =====================================================
 
         JTabbedPane tabs = new JTabbedPane();
 
-
         tabs.addTab(
                 "Passenger / Crossing",
                 buildPassengerTab()
         );
-
 
         tabs.addTab(
                 "Vehicle / Priority",
                 buildVehicleTab()
         );
 
-
         tabs.addTab(
                 "Police / Junction",
                 buildPoliceJunctionTab()
         );
-
 
         tabs.addTab(
                 "Emergency Request",
                 buildEmergencyTab()
         );
 
-
         tabs.addTab(
                 "Roadmap / Rules",
                 buildRoadmapTab()
         );
-
-
-        // =====================================================
-        // ADMIN SIDE
-        // =====================================================
 
         tabs.addTab(
                 "Admin Dashboard",
                 buildAdminDashboard()
         );
 
-
         add(tabs, BorderLayout.CENTER);
-
 
         // =====================================================
         // OUTPUT AREA
@@ -174,7 +161,6 @@ public class TrafficSystemGUI extends JFrame {
                         + "the Admin Dashboard."
         );
 
-
         JScrollPane scrollPane =
                 new JScrollPane(outputArea);
 
@@ -184,21 +170,17 @@ public class TrafficSystemGUI extends JFrame {
                 )
         );
 
-
         scrollPane.setPreferredSize(
                 new Dimension(880, 220)
         );
-
 
         add(
                 scrollPane,
                 BorderLayout.SOUTH
         );
 
-
         setVisible(true);
     }
-
 
     // =========================================================
     // PASSENGER TAB
@@ -209,7 +191,6 @@ public class TrafficSystemGUI extends JFrame {
         JPanel panel =
                 new JPanel(new BorderLayout(5, 5));
 
-
         // -------------------------
         // Passenger Registration
         // -------------------------
@@ -219,76 +200,61 @@ public class TrafficSystemGUI extends JFrame {
                         new GridLayout(4, 2, 5, 5)
                 );
 
-
         regPanel.setBorder(
                 BorderFactory.createTitledBorder(
                         "Passenger Registration"
                 )
         );
 
-
         regPanel.add(
                 new JLabel("Name:")
         );
 
-
         paxNameField =
                 new JTextField();
-
 
         regPanel.add(
                 paxNameField
         );
 
-
         regPanel.add(
                 new JLabel("Phone:")
         );
 
-
         paxPhoneField =
                 new JTextField();
-
 
         regPanel.add(
                 paxPhoneField
         );
 
-
         regPanel.add(
                 new JLabel("Location:")
         );
 
-
         paxLocationField =
                 new JTextField();
-
 
         regPanel.add(
                 paxLocationField
         );
-
 
         JButton registerPaxButton =
                 new JButton(
                         "Register Passenger"
                 );
 
-
         regPanel.add(
                 new JLabel()
         );
-
 
         regPanel.add(
                 registerPaxButton
         );
 
-
         registerPaxButton.addActionListener(
                 e -> registerPassenger()
         );
-
 
         // -------------------------
         // Road Crossing Request
@@ -299,83 +265,67 @@ public class TrafficSystemGUI extends JFrame {
                         new GridLayout(3, 2, 5, 5)
                 );
 
-
         crossPanel.setBorder(
                 BorderFactory.createTitledBorder(
                         "Road Crossing Request"
                 )
         );
 
-
         crossPanel.add(
                 new JLabel("Passenger ID:")
         );
 
-
         paxIdField =
                 new JTextField();
-
 
         crossPanel.add(
                 paxIdField
         );
 
-
         crossPanel.add(
                 new JLabel("Number of People:")
         );
 
-
         paxPeopleField =
                 new JTextField();
-
 
         crossPanel.add(
                 paxPeopleField
         );
-
 
         JButton requestCrossingButton =
                 new JButton(
                         "Request Crossing"
                 );
 
-
         crossPanel.add(
                 new JLabel()
         );
-
 
         crossPanel.add(
                 requestCrossingButton
         );
 
-
         requestCrossingButton.addActionListener(
                 e -> requestCrossing()
         );
-
 
         JPanel top =
                 new JPanel(
                         new GridLayout(2, 1, 5, 5)
                 );
 
-
         top.add(regPanel);
 
         top.add(crossPanel);
-
 
         panel.add(
                 top,
                 BorderLayout.NORTH
         );
 
-
         return panel;
     }
-
 
     // =========================================================
     // VEHICLE TAB
@@ -386,7 +336,6 @@ public class TrafficSystemGUI extends JFrame {
         JPanel panel =
                 new JPanel(new BorderLayout(5, 5));
 
-
         // =====================================================
         // VEHICLE REGISTRATION
         // =====================================================
@@ -396,60 +345,48 @@ public class TrafficSystemGUI extends JFrame {
                         new GridLayout(4, 2, 5, 5)
                 );
 
-
         vehiclePanel.setBorder(
                 BorderFactory.createTitledBorder(
                         "Vehicle Registration"
                 )
         );
 
-
         vehiclePanel.add(
                 new JLabel("Owner Name:")
         );
 
-
         vehNameField =
                 new JTextField();
-
 
         vehiclePanel.add(
                 vehNameField
         );
 
-
         vehiclePanel.add(
                 new JLabel("Phone:")
         );
 
-
         vehPhoneField =
                 new JTextField();
-
 
         vehiclePanel.add(
                 vehPhoneField
         );
 
-
         vehiclePanel.add(
                 new JLabel("Vehicle Number:")
         );
 
-
         vehNumberField =
                 new JTextField();
-
 
         vehiclePanel.add(
                 vehNumberField
         );
 
-
         vehiclePanel.add(
                 new JLabel("Vehicle Type:")
         );
-
 
         vehTypeBox =
                 new JComboBox<>(
@@ -465,11 +402,9 @@ public class TrafficSystemGUI extends JFrame {
                         }
                 );
 
-
         vehiclePanel.add(
                 vehTypeBox
         );
-
 
         // =====================================================
         // BUTTON PANEL
@@ -480,22 +415,15 @@ public class TrafficSystemGUI extends JFrame {
                         "Register Vehicle"
                 );
 
-
         JButton priorityButton =
                 new JButton(
                         "Priority List"
                 );
 
-
         JButton rulesButton =
                 new JButton(
                         "Traffic Rules"
                 );
-
-
-        /*
-         * Buttons are aligned to the right side.
-         */
 
         JPanel buttons =
                 new JPanel(
@@ -506,64 +434,52 @@ public class TrafficSystemGUI extends JFrame {
                         )
                 );
 
-
         buttons.add(
                 addVehicleButton
         );
-
 
         buttons.add(
                 priorityButton
         );
 
-
         buttons.add(
                 rulesButton
         );
-
 
         addVehicleButton.addActionListener(
                 e -> addVehicle()
         );
 
-
         priorityButton.addActionListener(
                 e -> showPriorityList()
         );
 
-
         rulesButton.addActionListener(
                 e -> showTrafficRules()
         );
-
 
         JPanel top =
                 new JPanel(
                         new BorderLayout()
                 );
 
-
         top.add(
                 vehiclePanel,
                 BorderLayout.NORTH
         );
-
 
         top.add(
                 buttons,
                 BorderLayout.CENTER
         );
 
-
         panel.add(
                 top,
                 BorderLayout.NORTH
         );
 
-
         return panel;
     }
-
 
     // =========================================================
     // POLICE / JUNCTION TAB
@@ -574,7 +490,6 @@ public class TrafficSystemGUI extends JFrame {
         JPanel panel =
                 new JPanel(new BorderLayout(5, 5));
 
-
         // -------------------------
         // Police Registration
         // -------------------------
@@ -584,90 +499,72 @@ public class TrafficSystemGUI extends JFrame {
                         new GridLayout(5, 2, 5, 5)
                 );
 
-
         policePanel.setBorder(
                 BorderFactory.createTitledBorder(
                         "Police Registration"
                 )
         );
 
-
         policePanel.add(
                 new JLabel("Officer Name:")
         );
 
-
         policeNameField =
                 new JTextField();
-
 
         policePanel.add(
                 policeNameField
         );
 
-
         policePanel.add(
                 new JLabel("Phone:")
         );
 
-
         policePhoneField =
                 new JTextField();
-
 
         policePanel.add(
                 policePhoneField
         );
 
-
         policePanel.add(
                 new JLabel("Police ID:")
         );
 
-
         policeIdField =
                 new JTextField();
-
 
         policePanel.add(
                 policeIdField
         );
 
-
         policePanel.add(
                 new JLabel("Location:")
         );
 
-
         policeLocationField =
                 new JTextField();
-
 
         policePanel.add(
                 policeLocationField
         );
-
 
         JButton registerPoliceButton =
                 new JButton(
                         "Register Police"
                 );
 
-
         policePanel.add(
                 new JLabel()
         );
-
 
         policePanel.add(
                 registerPoliceButton
         );
 
-
         registerPoliceButton.addActionListener(
                 e -> registerPolice()
         );
-
 
         // -------------------------
         // Junction
@@ -678,62 +575,50 @@ public class TrafficSystemGUI extends JFrame {
                         new GridLayout(3, 2, 5, 5)
                 );
 
-
         junctionPanel.setBorder(
                 BorderFactory.createTitledBorder(
                         "Junction Management"
                 )
         );
 
-
         junctionPanel.add(
                 new JLabel("Junction ID:")
         );
 
-
         junctionIdField =
                 new JTextField();
-
 
         junctionPanel.add(
                 junctionIdField
         );
 
-
         junctionPanel.add(
                 new JLabel("Location:")
         );
 
-
         junctionLocationField =
                 new JTextField();
-
 
         junctionPanel.add(
                 junctionLocationField
         );
-
 
         JButton addJunctionButton =
                 new JButton(
                         "Add Junction"
                 );
 
-
         junctionPanel.add(
                 new JLabel()
         );
-
 
         junctionPanel.add(
                 addJunctionButton
         );
 
-
         addJunctionButton.addActionListener(
                 e -> addJunction()
         );
-
 
         // -------------------------
         // Clearance Request
@@ -744,68 +629,55 @@ public class TrafficSystemGUI extends JFrame {
                         new GridLayout(3, 2, 5, 5)
                 );
 
-
         clearancePanel.setBorder(
                 BorderFactory.createTitledBorder(
                         "Junction Clearance Request"
                 )
         );
 
-
         clearancePanel.add(
                 new JLabel("Junction ID:")
         );
 
-
         clearanceJunctionIdField =
                 new JTextField();
-
 
         clearancePanel.add(
                 clearanceJunctionIdField
         );
 
-
         clearancePanel.add(
                 new JLabel("Officer:")
         );
 
-
         clearanceOfficerField =
                 new JTextField();
-
 
         clearancePanel.add(
                 clearanceOfficerField
         );
-
 
         JButton requestClearanceBtn =
                 new JButton(
                         "Request Clearance"
                 );
 
-
         clearancePanel.add(
                 new JLabel()
         );
-
 
         clearancePanel.add(
                 requestClearanceBtn
         );
 
-
         requestClearanceBtn.addActionListener(
                 e -> requestClearance()
         );
-
 
         JPanel top =
                 new JPanel(
                         new GridLayout(3, 1, 5, 5)
                 );
-
 
         top.add(policePanel);
 
@@ -813,16 +685,13 @@ public class TrafficSystemGUI extends JFrame {
 
         top.add(clearancePanel);
 
-
         panel.add(
                 top,
                 BorderLayout.NORTH
         );
 
-
         return panel;
     }
-
 
     // =========================================================
     // EMERGENCY REQUEST TAB
@@ -833,17 +702,10 @@ public class TrafficSystemGUI extends JFrame {
         JPanel panel =
                 new JPanel(new BorderLayout(5, 5));
 
-
-        /*
-         * Emergency request is separate from
-         * vehicle registration.
-         */
-
         JPanel createPanel =
                 new JPanel(
                         new GridLayout(6, 2, 5, 5)
                 );
-
 
         createPanel.setBorder(
                 BorderFactory.createTitledBorder(
@@ -851,87 +713,63 @@ public class TrafficSystemGUI extends JFrame {
                 )
         );
 
-
-        // =====================================================
         // REGISTERED VEHICLE
-        // =====================================================
 
         createPanel.add(
                 new JLabel("Registered Vehicle Number:")
         );
 
-
         erVehicleNumberField =
                 new JTextField();
-
 
         createPanel.add(
                 erVehicleNumberField
         );
 
-
-        // =====================================================
         // CURRENT LOCATION
-        // =====================================================
 
         createPanel.add(
                 new JLabel("Current Location:")
         );
 
-
         erLocationField =
                 new JTextField();
-
 
         createPanel.add(
                 erLocationField
         );
 
-
-        // =====================================================
         // DESTINATION
-        // =====================================================
 
         createPanel.add(
                 new JLabel("Destination:")
         );
 
-
         erDestinationField =
                 new JTextField();
-
 
         createPanel.add(
                 erDestinationField
         );
 
-
-        // =====================================================
         // EMERGENCY REASON
-        // =====================================================
 
         createPanel.add(
                 new JLabel("Emergency Reason:")
         );
 
-
         erReasonField =
                 new JTextField();
-
 
         createPanel.add(
                 erReasonField
         );
 
-
-        // =====================================================
         // EMERGENCY PRIORITY
-        // =====================================================
 
         createPanel.add(
                 new JLabel("Emergency Priority:")
         );
-
 
         emergencyPriorityBox =
                 new JComboBox<>(
@@ -942,57 +780,44 @@ public class TrafficSystemGUI extends JFrame {
                         }
                 );
 
-
         createPanel.add(
                 emergencyPriorityBox
         );
 
-
-        // =====================================================
         // BUTTON
-        // =====================================================
 
         JButton createRequestButton =
                 new JButton(
                         "Create Emergency Request"
                 );
 
-
         createPanel.add(
                 new JLabel()
         );
-
 
         createPanel.add(
                 createRequestButton
         );
 
-
         createRequestButton.addActionListener(
                 e -> createEmergencyRequest()
         );
-
 
         panel.add(
                 createPanel,
                 BorderLayout.NORTH
         );
 
-
-        // =====================================================
         // INFORMATION AREA
-        // =====================================================
 
         JTextArea info =
                 new JTextArea();
-
 
         info.setEditable(false);
 
         info.setLineWrap(true);
 
         info.setWrapStyleWord(true);
-
 
         info.setText(
                 "Emergency Request Information\n\n"
@@ -1004,16 +829,13 @@ public class TrafficSystemGUI extends JFrame {
                         + "6. The request will remain pending until admin approval."
         );
 
-
         panel.add(
                 new JScrollPane(info),
                 BorderLayout.CENTER
         );
 
-
         return panel;
     }
-
 
     // =========================================================
     // ADMIN DASHBOARD
@@ -1024,7 +846,6 @@ public class TrafficSystemGUI extends JFrame {
         JPanel panel =
                 new JPanel(new BorderLayout(5, 5));
 
-
         // =====================================================
         // EMERGENCY REQUEST MANAGEMENT
         // =====================================================
@@ -1034,85 +855,118 @@ public class TrafficSystemGUI extends JFrame {
                         new GridLayout(2, 2, 5, 5)
                 );
 
-
         emergencyPanel.setBorder(
                 BorderFactory.createTitledBorder(
                         "Emergency Request Management"
                 )
         );
 
-
         emergencyPanel.add(
                 new JLabel("Request ID:")
         );
 
-
         erRequestIdField =
                 new JTextField();
-
 
         emergencyPanel.add(
                 erRequestIdField
         );
-
 
         JPanel buttons =
                 new JPanel(
                         new GridLayout(1, 3, 5, 5)
                 );
 
-
         JButton approveButton =
                 new JButton("Approve");
-
 
         JButton rejectButton =
                 new JButton("Reject");
 
-
         JButton completeButton =
                 new JButton("Complete");
-
 
         buttons.add(
                 approveButton
         );
 
-
         buttons.add(
                 rejectButton
         );
-
 
         buttons.add(
                 completeButton
         );
 
-
         emergencyPanel.add(
                 new JLabel()
         );
-
 
         emergencyPanel.add(
                 buttons
         );
 
-
         approveButton.addActionListener(
                 e -> handleEmergencyAction("APPROVE")
         );
-
 
         rejectButton.addActionListener(
                 e -> handleEmergencyAction("REJECT")
         );
 
-
         completeButton.addActionListener(
                 e -> handleEmergencyAction("COMPLETE")
         );
 
+        // =====================================================
+        // ROAD CROSSING REQUEST MANAGEMENT
+        // =====================================================
+
+        JPanel crossingPanel =
+                new JPanel(
+                        new GridLayout(2, 2, 5, 5)
+                );
+
+        crossingPanel.setBorder(
+                BorderFactory.createTitledBorder(
+                        "Road Crossing Request Management"
+                )
+        );
+
+        crossingPanel.add(
+                new JLabel("Crossing Request ID:")
+        );
+
+        // IMPORTANT:
+        // Do NOT write JTextField here.
+        // We are using the class-level field.
+
+        crossingRequestIdField =
+                new JTextField();
+
+        crossingPanel.add(
+                crossingRequestIdField
+        );
+
+        JButton approveCrossingButton =
+                new JButton(
+                        "Approve Crossing"
+                );
+
+        crossingPanel.add(
+                new JLabel()
+        );
+
+        crossingPanel.add(
+                approveCrossingButton
+        );
+
+        // IMPORTANT:
+        // Button calls the separate method.
+
+        approveCrossingButton.addActionListener(
+                e -> approveCrossingRequest()
+        );
 
         // =====================================================
         // ADMIN INFORMATION
@@ -1121,13 +975,11 @@ public class TrafficSystemGUI extends JFrame {
         JTextArea adminInfo =
                 new JTextArea();
 
-
         adminInfo.setEditable(false);
 
         adminInfo.setLineWrap(true);
 
         adminInfo.setWrapStyleWord(true);
-
 
         adminInfo.setText(
                 "ADMIN / TRAFFIC CONTROLLER DASHBOARD\n\n"
@@ -1135,28 +987,38 @@ public class TrafficSystemGUI extends JFrame {
                         + "this section.\n\n"
                         + "Admin responsibilities:\n"
                         + "• Approve emergency requests\n"
+                        + "• Approve road crossing requests\n"
                         + "• Reject invalid requests\n"
                         + "• Complete emergency requests\n"
                         + "• Manage traffic operations\n"
                         + "• Monitor system requests"
         );
 
+        JPanel topPanel =
+                new JPanel(
+                        new GridLayout(2, 1, 5, 5)
+                );
 
-        panel.add(
-                emergencyPanel,
-                BorderLayout.NORTH
+        topPanel.add(
+                emergencyPanel
         );
 
+        topPanel.add(
+                crossingPanel
+        );
+
+        panel.add(
+                topPanel,
+                BorderLayout.NORTH
+        );
 
         panel.add(
                 new JScrollPane(adminInfo),
                 BorderLayout.CENTER
         );
 
-
         return panel;
     }
-
 
     // =========================================================
     // ROADMAP TAB
@@ -1167,12 +1029,10 @@ public class TrafficSystemGUI extends JFrame {
         JPanel panel =
                 new JPanel(new BorderLayout(5, 5));
 
-
         JPanel routePanel =
                 new JPanel(
                         new GridLayout(6, 2, 5, 5)
                 );
-
 
         routePanel.setBorder(
                 BorderFactory.createTitledBorder(
@@ -1180,53 +1040,42 @@ public class TrafficSystemGUI extends JFrame {
                 )
         );
 
-
         routePanel.add(
                 new JLabel("From:")
         );
 
-
         routeFromField =
                 new JTextField();
-
 
         routePanel.add(
                 routeFromField
         );
 
-
         routePanel.add(
                 new JLabel("To:")
         );
 
-
         routeToField =
                 new JTextField();
-
 
         routePanel.add(
                 routeToField
         );
 
-
         routePanel.add(
                 new JLabel("Distance:")
         );
 
-
         routeDistanceField =
                 new JTextField();
-
 
         routePanel.add(
                 routeDistanceField
         );
 
-
         routePanel.add(
                 new JLabel("Traffic Density:")
         );
-
 
         routeDensityBox =
                 new JComboBox<>(
@@ -1237,46 +1086,37 @@ public class TrafficSystemGUI extends JFrame {
                         }
                 );
 
-
         routePanel.add(
                 routeDensityBox
         );
-
 
         routePanel.add(
                 new JLabel("Road Blocked:")
         );
 
-
         routeBlockedBox =
                 new JCheckBox();
-
 
         routePanel.add(
                 routeBlockedBox
         );
-
 
         JButton addRouteButton =
                 new JButton(
                         "Add Route"
                 );
 
-
         routePanel.add(
                 new JLabel()
         );
-
 
         routePanel.add(
                 addRouteButton
         );
 
-
         addRouteButton.addActionListener(
                 e -> addRoute()
         );
-
 
         // -------------------------
         // Find Route
@@ -1287,88 +1127,71 @@ public class TrafficSystemGUI extends JFrame {
                         new GridLayout(3, 2, 5, 5)
                 );
 
-
         findPanel.setBorder(
                 BorderFactory.createTitledBorder(
                         "Find Route"
                 )
         );
 
-
         findPanel.add(
                 new JLabel("Source:")
         );
 
-
         routeSourceField =
                 new JTextField();
-
 
         findPanel.add(
                 routeSourceField
         );
 
-
         findPanel.add(
                 new JLabel("Destination:")
         );
 
-
         routeDestField =
                 new JTextField();
-
 
         findPanel.add(
                 routeDestField
         );
-
 
         JButton findRouteButton =
                 new JButton(
                         "Find Route"
                 );
 
-
         findPanel.add(
                 new JLabel()
         );
-
 
         findPanel.add(
                 findRouteButton
         );
 
-
         findRouteButton.addActionListener(
                 e -> findRoute()
         );
-
 
         JPanel top =
                 new JPanel(
                         new GridLayout(2, 1, 5, 5)
                 );
 
-
         top.add(
                 routePanel
         );
 
-
         top.add(
                 findPanel
         );
-
 
         panel.add(
                 top,
                 BorderLayout.NORTH
         );
 
-
         return panel;
     }
-
 
     // =========================================================
     // PASSENGER METHODS
@@ -1379,14 +1202,11 @@ public class TrafficSystemGUI extends JFrame {
         String name =
                 paxNameField.getText().trim();
 
-
         String phone =
                 paxPhoneField.getText().trim();
 
-
         String location =
                 paxLocationField.getText().trim();
-
 
         if (name.isEmpty()
                 || phone.isEmpty()
@@ -1397,17 +1217,13 @@ public class TrafficSystemGUI extends JFrame {
                     "Please fill all passenger information."
             );
 
-
             return;
         }
 
-
         accountCounter++;
-
 
         String id =
                 "PAX" + accountCounter;
-
 
         outputArea.setText(
                 "Passenger Registered Successfully!\n\n"
@@ -1418,47 +1234,72 @@ public class TrafficSystemGUI extends JFrame {
         );
     }
 
+    // =========================================================
+    // ROAD CROSSING REQUEST
+    // =========================================================
 
     private void requestCrossing() {
 
-        String passengerId =
-                paxIdField.getText().trim();
+    String passengerId = paxIdField.getText().trim();
+    String location = paxLocationField.getText().trim();
+    String peopleText = paxPeopleField.getText().trim();
 
+    if (passengerId.isEmpty() ||
+        location.isEmpty() ||
+        peopleText.isEmpty()) {
 
-        String people =
-                paxPeopleField.getText().trim();
+        JOptionPane.showMessageDialog(
+            this,
+            "Please fill in Passenger ID, Location and Number of People."
+        );
+        return;
+    }
 
+    try {
 
-        if (passengerId.isEmpty()
-                || people.isEmpty()) {
+        int people = Integer.parseInt(peopleText);
 
+        if (people <= 0) {
             JOptionPane.showMessageDialog(
-                    this,
-                    "Please enter Passenger ID and number of people."
+                this,
+                "Number of people must be greater than 0."
             );
-
-
             return;
         }
 
+        String requestId = "CR" + (++requestCounter);
 
-        crossingCounter++;
+        RoadCrossingRequest request =
+                new RoadCrossingRequest(
+                        requestId,
+                        passengerId,
+                        location,
+                        people
+                );
 
-
-        String requestId =
-                "CR" + crossingCounter;
-
+        controller.createCrossingRequest(request);
 
         outputArea.setText(
-                "Road Crossing Request Submitted!\n\n"
-                        + "Request ID: " + requestId + "\n"
-                        + "Passenger ID: " + passengerId + "\n"
-                        + "Number of People: " + people + "\n\n"
-                        + "Status: Pending Admin Approval"
+            "Road Crossing Request Created Successfully!\n\n" +
+            "Request ID: " + request.getRequestId() + "\n" +
+            "Passenger ID: " + request.getPassengerId() + "\n" +
+            "Location: " + request.getLocation() + "\n" +
+            "People: " + request.getNumberOfPeople() + "\n" +
+            "Density: " + request.getDensity() + "\n" +
+            "Crossing Time: " + request.getCrossingTime() + " seconds\n" +
+            "Status: " + request.getStatus()
+        );
+
+    } catch (NumberFormatException e) {
+
+        JOptionPane.showMessageDialog(
+            this,
+            "Number of people must be a valid number.",
+            "Invalid Input",
+            JOptionPane.ERROR_MESSAGE
         );
     }
-
-
+}
     // =========================================================
     // VEHICLE METHODS
     // =========================================================
@@ -1468,18 +1309,14 @@ public class TrafficSystemGUI extends JFrame {
         String name =
                 vehNameField.getText().trim();
 
-
         String phone =
                 vehPhoneField.getText().trim();
-
 
         String number =
                 vehNumberField.getText().trim();
 
-
         String type =
                 (String) vehTypeBox.getSelectedItem();
-
 
         if (name.isEmpty()
                 || phone.isEmpty()
@@ -1490,10 +1327,8 @@ public class TrafficSystemGUI extends JFrame {
                     "Please fill all vehicle information."
             );
 
-
             return;
         }
-
 
         // Prevent duplicate registration
 
@@ -1504,16 +1339,12 @@ public class TrafficSystemGUI extends JFrame {
                     "This vehicle is already registered."
             );
 
-
             return;
         }
 
-
         vehicleCounter++;
 
-
         registeredVehicles.add(number);
-
 
         outputArea.setText(
                 "Vehicle Registered Successfully!\n\n"
@@ -1528,7 +1359,6 @@ public class TrafficSystemGUI extends JFrame {
         );
     }
 
-
     private void showPriorityList() {
 
         try {
@@ -1536,12 +1366,10 @@ public class TrafficSystemGUI extends JFrame {
             List<?> list =
                     controller.getPriorityList();
 
-
             outputArea.setText(
                     "Vehicle Priority List:\n\n"
                             + list.toString()
             );
-
 
         } catch (Exception e) {
 
@@ -1550,7 +1378,6 @@ public class TrafficSystemGUI extends JFrame {
             );
         }
     }
-
 
     private void showTrafficRules() {
 
@@ -1564,7 +1391,6 @@ public class TrafficSystemGUI extends JFrame {
         );
     }
 
-
     // =========================================================
     // POLICE METHODS
     // =========================================================
@@ -1574,18 +1400,14 @@ public class TrafficSystemGUI extends JFrame {
         String name =
                 policeNameField.getText().trim();
 
-
         String phone =
                 policePhoneField.getText().trim();
-
 
         String id =
                 policeIdField.getText().trim();
 
-
         String location =
                 policeLocationField.getText().trim();
-
 
         if (name.isEmpty()
                 || phone.isEmpty()
@@ -1597,10 +1419,8 @@ public class TrafficSystemGUI extends JFrame {
                     "Please fill all police information."
             );
 
-
             return;
         }
-
 
         outputArea.setText(
                 "Police Officer Registered!\n\n"
@@ -1611,16 +1431,13 @@ public class TrafficSystemGUI extends JFrame {
         );
     }
 
-
     private void addJunction() {
 
         String id =
                 junctionIdField.getText().trim();
 
-
         String location =
                 junctionLocationField.getText().trim();
-
 
         if (id.isEmpty()
                 || location.isEmpty()) {
@@ -1630,10 +1447,8 @@ public class TrafficSystemGUI extends JFrame {
                     "Enter Junction ID and Location."
             );
 
-
             return;
         }
-
 
         outputArea.setText(
                 "Junction Added Successfully!\n\n"
@@ -1642,16 +1457,13 @@ public class TrafficSystemGUI extends JFrame {
         );
     }
 
-
     private void requestClearance() {
 
         String junctionId =
                 clearanceJunctionIdField.getText().trim();
 
-
         String officer =
                 clearanceOfficerField.getText().trim();
-
 
         if (junctionId.isEmpty()
                 || officer.isEmpty()) {
@@ -1661,10 +1473,8 @@ public class TrafficSystemGUI extends JFrame {
                     "Enter Junction ID and Officer name."
             );
 
-
             return;
         }
-
 
         outputArea.setText(
                 "Junction Clearance Request Submitted!\n\n"
@@ -1673,7 +1483,6 @@ public class TrafficSystemGUI extends JFrame {
                         + "Status: Pending Admin/Traffic Controller"
         );
     }
-
 
     // =========================================================
     // EMERGENCY REQUEST METHODS
@@ -1684,26 +1493,19 @@ public class TrafficSystemGUI extends JFrame {
         String vehicleNumber =
                 erVehicleNumberField.getText().trim();
 
-
         String location =
                 erLocationField.getText().trim();
-
 
         String destination =
                 erDestinationField.getText().trim();
 
-
         String reason =
                 erReasonField.getText().trim();
-
 
         String emergencyPriority =
                 (String) emergencyPriorityBox.getSelectedItem();
 
-
-        // =====================================================
         // CHECK EMPTY FIELDS
-        // =====================================================
 
         if (vehicleNumber.isEmpty()
                 || location.isEmpty()
@@ -1715,14 +1517,10 @@ public class TrafficSystemGUI extends JFrame {
                     "Please fill all emergency request information."
             );
 
-
             return;
         }
 
-
-        // =====================================================
         // CHECK VEHICLE REGISTRATION
-        // =====================================================
 
         if (!registeredVehicles.contains(vehicleNumber)) {
 
@@ -1735,21 +1533,15 @@ public class TrafficSystemGUI extends JFrame {
                     JOptionPane.WARNING_MESSAGE
             );
 
-
             return;
         }
 
-
-        // =====================================================
         // CREATE REQUEST
-        // =====================================================
 
         requestCounter++;
 
-
         String requestId =
                 "ER" + requestCounter;
-
 
         outputArea.setText(
                 "Emergency Request Created Successfully!\n\n"
@@ -1768,7 +1560,6 @@ public class TrafficSystemGUI extends JFrame {
         );
     }
 
-
     // =========================================================
     // ADMIN EMERGENCY ACTION
     // =========================================================
@@ -1778,7 +1569,6 @@ public class TrafficSystemGUI extends JFrame {
         String requestId =
                 erRequestIdField.getText().trim();
 
-
         if (requestId.isEmpty()) {
 
             JOptionPane.showMessageDialog(
@@ -1786,17 +1576,16 @@ public class TrafficSystemGUI extends JFrame {
                     "Enter an Emergency Request ID."
             );
 
-
             return;
         }
-
 
         try {
 
             if (action.equals("APPROVE")) {
 
-                controller.approveEmergency(requestId);
-
+                controller.approveEmergency(
+                        requestId
+                );
 
                 outputArea.setText(
                         "Emergency Request "
@@ -1804,11 +1593,11 @@ public class TrafficSystemGUI extends JFrame {
                                 + " approved successfully."
                 );
 
-
             } else if (action.equals("REJECT")) {
 
-                controller.rejectEmergency(requestId);
-
+                controller.rejectEmergency(
+                        requestId
+                );
 
                 outputArea.setText(
                         "Emergency Request "
@@ -1816,11 +1605,11 @@ public class TrafficSystemGUI extends JFrame {
                                 + " rejected successfully."
                 );
 
-
             } else if (action.equals("COMPLETE")) {
 
-                controller.completeEmergency(requestId);
-
+                controller.completeEmergency(
+                        requestId
+                );
 
                 outputArea.setText(
                         "Emergency Request "
@@ -1829,11 +1618,9 @@ public class TrafficSystemGUI extends JFrame {
                 );
             }
 
-
         } catch (Exception e) {
 
             e.printStackTrace();
-
 
             JOptionPane.showMessageDialog(
                     this,
@@ -1847,6 +1634,77 @@ public class TrafficSystemGUI extends JFrame {
         }
     }
 
+    // =========================================================
+    // ADMIN CROSSING APPROVAL
+    // =========================================================
+
+    private void approveCrossingRequest() {
+
+        String requestId =
+                crossingRequestIdField.getText().trim();
+
+        if (requestId.isEmpty()) {
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Enter a Crossing Request ID."
+            );
+
+            return;
+        }
+
+        boolean found = false;
+
+        try {
+
+            for (RoadCrossingRequest request :
+                    controller.getCrossingRequests()) {
+
+                if (request.getRequestId()
+                        .equals(requestId)) {
+
+                    controller.approveCrossing(
+                            requestId
+                    );
+
+                    outputArea.setText(
+                            "Road Crossing Request "
+                                    + requestId
+                                    + " approved successfully.\n\n"
+                                    + "Status: APPROVED"
+                    );
+
+                    found = true;
+
+                    break;
+                }
+            }
+
+            if (!found) {
+
+                JOptionPane.showMessageDialog(
+                        this,
+                        "Crossing Request ID not found: "
+                                + requestId,
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE
+                );
+            }
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Crossing request could not be approved.\n\n"
+                            + "Reason: "
+                            + e.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE
+            );
+        }
+    }
 
     // =========================================================
     // ROADMAP METHODS
@@ -1857,22 +1715,17 @@ public class TrafficSystemGUI extends JFrame {
         String from =
                 routeFromField.getText().trim();
 
-
         String to =
                 routeToField.getText().trim();
-
 
         String distance =
                 routeDistanceField.getText().trim();
 
-
         String density =
                 (String) routeDensityBox.getSelectedItem();
 
-
         boolean blocked =
                 routeBlockedBox.isSelected();
-
 
         if (from.isEmpty()
                 || to.isEmpty()
@@ -1883,10 +1736,8 @@ public class TrafficSystemGUI extends JFrame {
                     "Please fill all route information."
             );
 
-
             return;
         }
-
 
         outputArea.setText(
                 "Route Added Successfully!\n\n"
@@ -1899,16 +1750,13 @@ public class TrafficSystemGUI extends JFrame {
         );
     }
 
-
     private void findRoute() {
 
         String source =
                 routeSourceField.getText().trim();
 
-
         String destination =
                 routeDestField.getText().trim();
-
 
         if (source.isEmpty()
                 || destination.isEmpty()) {
@@ -1918,10 +1766,8 @@ public class TrafficSystemGUI extends JFrame {
                     "Enter source and destination."
             );
 
-
             return;
         }
-
 
         outputArea.setText(
                 "Route Search\n\n"
@@ -1931,7 +1777,6 @@ public class TrafficSystemGUI extends JFrame {
                         + "Finding the best available route..."
         );
     }
-
 
     // =========================================================
     // MAIN METHOD
